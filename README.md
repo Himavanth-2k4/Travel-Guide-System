@@ -64,7 +64,7 @@ Use XAMPP, WAMP, or MAMP
 
   Place the project folder inside the htdocs directory
 
-  Open your browser and navigate to http://localhost/travel-guide-system
+  Open your browser and navigate to http://localhost/Travel%20gUIDE%20System
 
 📬 Feedback and Contributions
 We welcome feedback, bug reports, and contributions to enhance the platform. Feel free to open issues or pull requests.
