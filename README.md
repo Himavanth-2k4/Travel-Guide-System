@@ -41,7 +41,7 @@ To run the project locally, follow these steps:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/travel-guide-system.git
+http://localhost/Travel%20gUIDE%20System
 ```
 ### 2.Set Up the Database
   Open PHPMyAdmin
