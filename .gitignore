@@ -1,0 +1,22 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment and sensitive files
+.env
+config.local.php
+
+# Web server logs
+*.log
+error_log
+access_log
+
+# Temporary files
+*.tmp
+*.bak
