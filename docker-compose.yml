@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=travel_guide
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=rootpassword
+    depends_on:
+      - db
+    volumes:
+      - ./gib:/var/www/html
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: travel_guide
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./gib/admin_tables.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  db_data:
