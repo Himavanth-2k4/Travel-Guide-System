@@ -130,22 +130,27 @@
                 $msg = "Password must be at least 6 characters long.";
                 $msgClass = "error";
             } else {
-                // Check if email already exists
-                $check = $conn->query("SELECT * FROM users WHERE email = '$email'");
-                if ($check->num_rows > 0) {
+                // Check if email already exists using prepared statement
+                $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+                $checkStmt->bind_param("s", $email);
+                $checkStmt->execute();
+                $checkResult = $checkStmt->get_result();
+
+                if ($checkResult->num_rows > 0) {
                     $msg = "Email already registered!";
                     $msgClass = "error";
                 } else {
                     // Hash the password
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     
-                    // Insert new user
-                    $sql = "INSERT INTO users (name, email, password) VALUES ('$name', '$email', '$hashedPassword')";
-                    if ($conn->query($sql)) {
+                    // Insert new user using prepared statement
+                    $insertStmt = $conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+                    $insertStmt->bind_param("sss", $name, $email, $hashedPassword);
+                    if ($insertStmt->execute()) {
                         $msg = "Registration successful! <a href='login.php'>Login here</a>";
                         $msgClass = "success";
                     } else {
-                        $msg = "Error: " . $conn->error;
+                        $msg = "Error: " . $insertStmt->error;
                         $msgClass = "error";
                     }
                 }
